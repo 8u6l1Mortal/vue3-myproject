@@ -1,10 +1,14 @@
 <script>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
+console.log(this, "this", router, " router");
 export default {
   name: "App",
   setup() {
     const msg = "Hello Vue3!";
-    // 左侧菜单栏
+    // setup函数在
+    // 左侧菜单栏beforeCreate之前执行,此时this还不是组件实例，所以this是 undefined
     const isCollapse = ref(false);
     const menuBarData = [
       {
@@ -14,6 +18,7 @@ export default {
           {
             menuName: "字典管理",
             id: "dictionaries",
+            path: "/dictionaries",
           },
           {
             menuName: "点位管理",
@@ -40,12 +45,46 @@ export default {
       {
         menuName: "权限管理",
         id: "authority",
+        children: [
+          {
+            menuName: "字典管理",
+            id: "dictionaries",
+            path: "/dictionaries",
+          },
+          {
+            menuName: "点位管理",
+            id: "inode",
+          },
+          {
+            menuName: "设备管理",
+            id: "equipment",
+          },
+          {
+            menuName: "安保管理",
+            id: "security",
+          },
+          {
+            menuName: "登录日志",
+            id: "loginLog",
+          },
+          {
+            menuName: "操作日志",
+            id: "handleLog",
+          },
+        ],
       },
     ];
+    const menulikeApi = (path) => {
+      if (path) {
+        console.log(router, " router");
+        router.push("/home/dictionaries");
+      }
+    };
     return {
       msg,
       isCollapse,
       menuBarData,
+      menulikeApi,
     };
   },
 };
@@ -57,6 +96,7 @@ export default {
         active-text-color="#ffd04b"
         background-color="#545c64"
         class="el-menu-vertical-demo"
+        :unique-opened="true"
         :collapse="isCollapse"
         default-active="2"
         text-color="#fff"
@@ -75,6 +115,7 @@ export default {
               v-for="(child, inx) in item.children"
               :key="child.id"
               :index="index + '-' + inx"
+              @click="menulikeApi(child.path)"
             >
               <el-icon><document /></el-icon>
               <span>{{ child.menuName }}</span>
@@ -89,6 +130,14 @@ export default {
           <el-icon v-if="isCollapse"><Fold /></el-icon>
           <el-icon v-if="!isCollapse"><Expand /></el-icon>
         </span>
+        <router-link to="/home/dictionaries">字典管理</router-link>
+        <span>
+          <el-icon><RefreshLeft /></el-icon>
+          <el-icon><UserFilled /></el-icon
+        ></span>
+      </div>
+      <div class="main-container">
+        <router-view></router-view>
       </div>
     </div>
   </div>
@@ -104,7 +153,6 @@ export default {
     // width: 230px;
     height: 100%;
     background-color: #545c64;
-    padding-right: 1px;
     overflow-y: hidden;
   }
 
@@ -122,6 +170,10 @@ export default {
       color: #fff;
       background-color: #545c64;
       box-shadow: 0, 0, 0, 0.4;
+    }
+
+    .main-container {
+      height: calc(100% - 30px);
     }
   }
 }

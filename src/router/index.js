@@ -10,8 +10,16 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 // 2. 定义一些路由 每个路由都需要映射到一个组件。
 const routes = [
   {
-    path: "/", component: () => import('../view/Home/index.vue')
-  }
+    path: "/home",
+    component: () => import('../view/Home/index.vue'),
+    children: [
+      {
+        path: "/dictionaries",
+        component: () => import('../view/system/dictionaries/index.vue')
+      },
+    ]
+  },
+
 ]
 
 // 3. 创建路由实例并传递 `routes` 配置  
