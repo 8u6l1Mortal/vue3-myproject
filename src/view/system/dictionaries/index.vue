@@ -1,4 +1,4 @@
-<script>
+<script >
 export default {
   name: "App",
   setup() {
@@ -11,8 +11,14 @@ export default {
 </script>
 <template>
   <!-- 设备管理dictionaries -->
-  <div>
-    <div>设备管理dictionaries</div>
+  <div class="dictionaries">
+    1111111首页，增删改查
   </div>
 </template>
-<style></style>
+<style lang="less">
+.dictionaries{
+  width: 100%;
+  height: 100%;
+  background-color: #ccc;
+}
+</style>

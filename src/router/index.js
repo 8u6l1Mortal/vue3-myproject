@@ -27,7 +27,8 @@ const routes = [
 ]
 
 // 3. 创建路由实例并传递 `routes` 配置  
-// 4. 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。
+// 4. 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。 
+// 5. 已经修改为history模式，这是现在开发通用的模式
 const router = createRouter({
   history: createWebHistory(),
   routes, // `routes: routes` 的缩写
