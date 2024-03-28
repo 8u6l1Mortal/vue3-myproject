@@ -1,11 +1,10 @@
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-const router = useRouter();
-console.log(this, "this", router, " router");
 export default {
   name: "App",
   setup() {
+    const router = useRouter();
     const msg = "Hello Vue3!";
     // setup函数在
     // 左侧菜单栏beforeCreate之前执行,此时this还不是组件实例，所以this是 undefined
@@ -18,15 +17,18 @@ export default {
           {
             menuName: "字典管理",
             id: "dictionaries",
-            path: "/dictionaries",
+            path: "dictionaries",
           },
           {
             menuName: "点位管理",
             id: "inode",
+            path: "inode",
           },
           {
             menuName: "设备管理",
             id: "equipment",
+            path: "equipment",
+
           },
           {
             menuName: "安保管理",
@@ -49,7 +51,7 @@ export default {
           {
             menuName: "字典管理",
             id: "dictionaries",
-            path: "/dictionaries",
+            path: "dictionaries",
           },
           {
             menuName: "点位管理",
@@ -77,7 +79,7 @@ export default {
     const menulikeApi = (path) => {
       if (path) {
         console.log(router, " router");
-        router.push("/home/dictionaries");
+        router.push(path);
       }
     };
     return {
@@ -130,7 +132,6 @@ export default {
           <el-icon v-if="isCollapse"><Fold /></el-icon>
           <el-icon v-if="!isCollapse"><Expand /></el-icon>
         </span>
-        <router-link to="/home/dictionaries">字典管理</router-link>
         <span>
           <el-icon><RefreshLeft /></el-icon>
           <el-icon><UserFilled /></el-icon

@@ -12,7 +12,7 @@ export default {
 <template>
   <!-- 设备管理equipment -->
   <div>
-    <h1>设备管理equipment</h1>
+    <div>设备管理equipment</div>
   </div>
 </template>
 <style></style>

@@ -12,7 +12,7 @@ export default {
 <template>
   <!-- 设备管理dictionaries -->
   <div>
-    <h1>设备管理dictionaries</h1>
+    <div>设备管理dictionaries</div>
   </div>
 </template>
 <style></style>
