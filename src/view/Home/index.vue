@@ -28,7 +28,6 @@ export default {
             menuName: "设备管理",
             id: "equipment",
             path: "equipment",
-
           },
           {
             menuName: "安保管理",
@@ -174,6 +173,7 @@ export default {
     }
 
     .main-container {
+      padding: 20px;
       height: calc(100% - 30px);
     }
   }
