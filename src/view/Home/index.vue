@@ -15,7 +15,7 @@ export default {
         id: "system",
         children: [
           {
-            menuName: "字典管理",
+            menuName: "用户管理",
             id: "dictionaries",
             path: "dictionaries",
           },

@@ -1,7 +1,8 @@
 <script setup>
 import { reactive, ref } from "vue";
+import add from "./components/add.vue";
 // ==> 增,删,改功能
-const handleAdd = () => {};
+
 const handleEdit = (index, row) => {};
 const handleDelete = (index, row) => {};
 // ==> 查询功能
@@ -10,45 +11,33 @@ const form = reactive({
 });
 
 // ==> 分页器
-let pageSize = ref(1);
-let currentPage = ref(1);
+let pageSize = ref("");
+let currentPage = ref("");
 const handleSizeChange = (val) => (pageSize.value = val);
 const handleCurrentChange = (val) => (currentPage.value = val);
 
 // ==> 表格原始数据
-let tableData = [
+let tableData = reactive([
   {
-    name: "租户类型",
-    coding: "编码",
+    userName: "租户类型",
+    level: "编码",
     state: "正常",
     remark: "租户类型",
   },
-  {
-    name: "租户类型",
-    coding: "编码",
-    state: "正常",
-    remark: "租户类型",
-  },
-  {
-    name: "租户类型",
-    coding: "编码",
-    state: "正常",
-    remark: "租户类型",
-  },
-  {
-    name: "租户类型",
-    coding: "编码",
-    state: "正常",
-    remark: "租户类型",
-  },
-  {
-    name: "租户类型",
-    coding: "编码",
-    state: "正常",
-    remark: "租户类型",
-  },
-];
-
+]);
+// 添加弹框
+const dialogVisible = ref(false);
+const handleAdd = () => {
+  dialogVisible.value = true;
+};
+// 关闭添加弹框
+const childClose = (value) => {
+  if (value) {
+    tableData.push(value);
+  }
+  console.log(tableData, "value", value);
+  dialogVisible.value = false;
+};
 // ==> 表格筛选数据
 let filterData = [];
 </script>
@@ -80,9 +69,9 @@ let filterData = [];
         style="width: 95%"
       >
         <el-table-column type="index" label="序号" width="60" align="center" />
-        <el-table-column prop="name" label="名称" width="200" />
-        <el-table-column prop="coding" label="编码" width="300" />
-        <el-table-column prop="state" label="状态" width="200" />
+        <el-table-column prop="userName" label="用户名称" width="200" />
+        <el-table-column prop="coding" label="最新登录时间" width="300" />
+        <el-table-column prop="level" label="权限等级" width="200" />
         <el-table-column prop="remark" label="备注" width="500" />
         <el-table-column label="操作" align="center">
           <template #default="scope">
@@ -118,6 +107,15 @@ let filterData = [];
       @current-change="handleCurrentChange"
     />
   </el-card>
+  <!-- 添加弹框 -->
+  <el-dialog
+    v-model="dialogVisible"
+    title="新增"
+    width="50%"
+    :before-close="handleClose"
+  >
+    <add @childClose="childClose" />
+  </el-dialog>
 </template>
 <style lang="less">
 .dictionaries {
